@@ -49,6 +49,23 @@ func (d *Database) Migrate() error {
 	return nil
 }
 
+//Reset drops tables and recreates them
+func (d *Database) Reset() error {
+	_, b, _, _ := runtime.Caller(0)
+	path := fmt.Sprintf("file:///%v/migrations", filepath.Dir(b))
+
+	m, err := migrate.New(path, d.url)
+	if err != nil {
+		return err
+	}
+
+	if err = m.Drop(); err != nil {
+		return err
+	}
+
+	return d.Migrate()
+}
+
 //FromConfig creates a pgx connection from the configuration
 func FromConfig(info Info) (*Database, error) {
 	c, err := pgxpool.Connect(context.Background(), info.url())

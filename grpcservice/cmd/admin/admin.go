@@ -2,9 +2,10 @@ package main
 
 import (
 	"flag"
+	"log"
+
 	"github.com/djquan/skeleton/grpcservice/internal"
 	"github.com/djquan/skeleton/grpcservice/internal/platform/database"
-	"log"
 )
 
 func main() {
@@ -21,11 +22,21 @@ func main() {
 		}
 
 		log.Println("Performing Database Migration")
-		err = db.Migrate()
 
-		if err != nil {
+		if err = db.Migrate(); err != nil {
 			log.Fatalf("Unable to migrate database: %v", err)
 		}
+	case "reset":
+		db, err := database.FromConfig(config.Database)
+		if err != nil {
+			log.Fatalf("Unable to talk to database: %v", err)
+		}
+		log.Println("Performing Database Reset")
+
+		if err = db.Reset(); err != nil {
+			log.Fatalf("Unable to reset database: %v", err)
+		}
+
 	default:
 		log.Fatalf("Provide an appropriate --command")
 	}
