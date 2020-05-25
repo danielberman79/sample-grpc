@@ -1,14 +1,14 @@
 package main
 
 import (
-	"context"
 	"fmt"
-	"github.com/jackc/pgx/v4"
+	"github.com/djquan/skeleton/grpcservice/internal"
+	"github.com/djquan/skeleton/grpcservice/internal/platform/database"
 	"log"
 	"net"
 
-	"github.com/djquan/skeleton/grpcservice/internal/comment"
-	"github.com/djquan/skeleton/grpcservice/internal/ping"
+	"github.com/djquan/skeleton/grpcservice/internal/app/comment"
+	"github.com/djquan/skeleton/grpcservice/internal/app/ping"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/health"
@@ -17,16 +17,16 @@ import (
 )
 
 func main() {
-	config := readConfig()
+	config := internal.ReadConfig()
 	lis, err := net.Listen("tcp", fmt.Sprintf("%v:%v", config.Server.Host, config.Server.Port))
 	if err != nil {
 		log.Fatalf("oh nos %v", err)
 	}
 
-	_, err = pgx.Connect(context.Background(), config.Database.Url())
+	_, err = database.FromConfig(config.Database)
 
 	if err != nil {
-		log.Fatalf("unable to talk to databaseName %v\n", err)
+		log.Fatalf("unable to talk to database %v\n", err)
 	}
 
 	s := grpc.NewServer(grpc.UnaryInterceptor(unaryInterceptor), grpc.StreamInterceptor(streamInterceptor))
