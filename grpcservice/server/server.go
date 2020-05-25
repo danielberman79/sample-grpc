@@ -28,9 +28,7 @@ func main() {
 	ping.RegisterPingServiceServer(s, &server{})
 	reflection.Register(s)
 
-	err = s.Serve(lis)
-
-	if err != nil {
+	if err = s.Serve(lis); err != nil {
 		log.Fatalf("oh nos %v", err)
 	}
 }
