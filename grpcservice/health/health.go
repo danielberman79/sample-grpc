@@ -8,10 +8,19 @@ import (
 
 type server struct{}
 
-//Check exists to provide an RPC call for clients to determine if the server is healthy.
-func (*server) Check(_ context.Context, _ *CheckRequest) (*CheckResult, error) {
-	return &CheckResult{
-		Message: "healthy",
+//Watch exists to provide a streaming RPC call for clients to determine if the server is healthy.
+func (s *server) Watch(_ *CheckRequest, stream HealthService_WatchServer) error {
+	if err := stream.Send(&CheckResponse{Status: CheckResponse_SERVING}); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+//Check exists to provide a RPC call for clients to determine if the server is healthy.
+func (*server) Check(_ context.Context, _ *CheckRequest) (*CheckResponse, error) {
+	return &CheckResponse{
+		Status: CheckResponse_SERVING,
 	}, nil
 }
 
