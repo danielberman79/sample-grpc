@@ -13,8 +13,7 @@ type server struct{}
 
 func (*server) Ping(_ context.Context, _ *ping.PingRequest) (*ping.PingResult, error) {
 	return &ping.PingResult{
-		Message:   "ping",
-		CreatedAt: nil,
+		Message: "pong",
 	}, nil
 }
 
