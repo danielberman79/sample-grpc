@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net"
 
@@ -13,7 +14,8 @@ import (
 )
 
 func main() {
-	lis, err := net.Listen("tcp", ":8080")
+	config := readConfig()
+	lis, err := net.Listen("tcp", fmt.Sprintf("%v:%v", config.Server.Host, config.Server.Port))
 	if err != nil {
 		log.Fatalf("oh nos %v", err)
 	}
