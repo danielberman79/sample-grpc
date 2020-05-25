@@ -18,17 +18,16 @@ func main() {
 		log.Fatalf("oh nos %v", err)
 	}
 
-	s := newServer()
+	s := grpc.NewServer()
+	registerServices(s)
+	log.Println("Beginning to Serve grpc traffic on port 8080")
 	if err = s.Serve(lis); err != nil {
 		log.Fatalf("oh nos %v", err)
 	}
 }
 
-func newServer() *grpc.Server {
-	s := grpc.NewServer()
+func registerServices(s *grpc.Server) {
 	healthgrpc.RegisterHealthServer(s, health.NewServer())
 	ping.Register(s)
 	reflection.Register(s)
-	log.Println("Beginning to Serve grpc traffic on port 8080")
-	return s
 }
