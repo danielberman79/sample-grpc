@@ -23,7 +23,7 @@ func main() {
 
 func newServer() *grpc.Server {
 	s := grpc.NewServer()
-	health.RegisterHealthServiceServer(s, health.NewHealthService())
+	health.RegisterWithServer(s)
 	reflection.Register(s)
 	return s
 }
