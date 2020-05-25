@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 
 proto-generate:
-	protoc --go_out=plugins=grpc:. --go_opt=paths=source_relative grpcservice/protos/*.proto
+	protoc --go_out=plugins=grpc:. --go_opt=paths=source_relative grpcservice/*/*.proto
 
-ping-test:
-	grpcurl -plaintext localhost:8080 ping.PingService/Ping
+grpc-healthcheck:
+	grpcurl -plaintext localhost:8080 health.HealthService/Check
