@@ -3,12 +3,13 @@ package database
 import (
 	"context"
 	"fmt"
+	"path/filepath"
+	"runtime"
+
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
-	"github.com/jackc/pgx/v4"
-	"path/filepath"
-	"runtime"
+	"github.com/jackc/pgx/v4/pgxpool"
 )
 
 //Info provides the required configs for setting up a connection to Postgres
@@ -26,7 +27,7 @@ func (d *Info) url() string {
 
 //Database represents a wrapper around pgx that has migration abilities
 type Database struct {
-	*pgx.Conn
+	*pgxpool.Pool
 	url string
 }
 
@@ -50,11 +51,11 @@ func (d *Database) Migrate() error {
 
 //FromConfig creates a pgx connection from the configuration
 func FromConfig(info Info) (*Database, error) {
-	c, err := pgx.Connect(context.Background(), info.url())
+	c, err := pgxpool.Connect(context.Background(), info.url())
 
 	if err != nil {
 		return nil, err
 	}
 
-	return &Database{Conn: c, url: info.url()}, nil
+	return &Database{Pool: c, url: info.url()}, nil
 }

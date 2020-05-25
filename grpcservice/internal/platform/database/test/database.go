@@ -3,10 +3,11 @@ package test
 import (
 	"context"
 	"fmt"
-	"github.com/djquan/skeleton/grpcservice/internal/platform/database"
-	"github.com/google/uuid"
 	"strings"
 	"testing"
+
+	"github.com/djquan/skeleton/grpcservice/internal/platform/database"
+	"github.com/google/uuid"
 )
 
 //NewDatabaseForTest provides a new database for tests, and returns that database and the cleanup function.
@@ -59,9 +60,7 @@ func NewDatabaseForTest(t *testing.T) (database.Database, func()) {
 func cleanup(newDb, db *database.Database, t *testing.T, tableId string) func() {
 	return func() {
 		if newDb != nil {
-			if err := newDb.Close(context.Background()); err != nil {
-				t.Fatalf("Unable to close connection to test database: %v", err)
-			}
+			newDb.Close()
 		}
 
 		_, err := db.Exec(context.Background(), fmt.Sprintf("DROP DATABASE %v", tableId))
@@ -69,8 +68,6 @@ func cleanup(newDb, db *database.Database, t *testing.T, tableId string) func() 
 			t.Fatalf("Unable to drop test database %v: %v", tableId, err)
 		}
 
-		if err := db.Close(context.Background()); err != nil {
-			t.Fatalf("Unable to close connection to database: %v", err)
-		}
+		db.Close()
 	}
 }

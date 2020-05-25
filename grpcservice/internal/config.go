@@ -1,12 +1,14 @@
 package internal
 
 import (
+	"log"
+
 	"github.com/BurntSushi/toml"
 	"github.com/djquan/skeleton/grpcservice/internal/platform/database"
-	"log"
 )
 
 //Config represents the configuration of this application
+//noinspection GoUnnecessarilyExportedIdentifiers
 type Config struct {
 	Server   serverInfo
 	Database database.Info
