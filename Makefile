@@ -1,8 +1,8 @@
 SHELL := /bin/bash
 
 proto-generate:
-	for proto in grpcservice/*/*.proto; do \
-	  protoc --go_out=plugins=grpc:. --go_opt=paths=source_relative $$proto ;\
+	for proto in grpcservice/api/*.proto; do \
+	  protoc --go_out=plugins=grpc:. $$proto ;\
 	done
 
 grpc-healthcheck:

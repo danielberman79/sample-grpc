@@ -3,12 +3,12 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/djquan/skeleton/grpcservice/comment"
 	"github.com/jackc/pgx/v4"
 	"log"
 	"net"
 
-	"github.com/djquan/skeleton/grpcservice/ping"
+	"github.com/djquan/skeleton/grpcservice/internal/comment"
+	"github.com/djquan/skeleton/grpcservice/internal/ping"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/health"
