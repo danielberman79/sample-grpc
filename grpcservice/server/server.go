@@ -18,7 +18,7 @@ func main() {
 		log.Fatalf("oh nos %v", err)
 	}
 
-	s := grpc.NewServer()
+	s := grpc.NewServer(grpc.UnaryInterceptor(unaryInterceptor), grpc.StreamInterceptor(streamInterceptor))
 	registerServices(s)
 	log.Println("Beginning to Serve grpc traffic on port 8080")
 	if err = s.Serve(lis); err != nil {
