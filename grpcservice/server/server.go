@@ -1,7 +1,10 @@
 package main
 
 import (
+	"context"
 	"fmt"
+	"github.com/djquan/skeleton/grpcservice/comment"
+	"github.com/jackc/pgx/v4"
 	"log"
 	"net"
 
@@ -20,16 +23,23 @@ func main() {
 		log.Fatalf("oh nos %v", err)
 	}
 
+	_, err = pgx.Connect(context.Background(), config.Database.Url())
+
+	if err != nil {
+		log.Fatalf("unable to talk to databaseName %v\n", err)
+	}
+
 	s := grpc.NewServer(grpc.UnaryInterceptor(unaryInterceptor), grpc.StreamInterceptor(streamInterceptor))
-	registerServices(s)
+	setupServer(s)
 	log.Println("Beginning to Serve grpc traffic on port 8080")
 	if err = s.Serve(lis); err != nil {
 		log.Fatalf("oh nos %v", err)
 	}
 }
 
-func registerServices(s *grpc.Server) {
+func setupServer(s *grpc.Server) {
 	healthgrpc.RegisterHealthServer(s, health.NewServer())
 	ping.Register(s)
+	comment.Register(s)
 	reflection.Register(s)
 }
