@@ -1,11 +1,12 @@
 package main
 
 import (
+	"log"
+	"net"
+
 	"github.com/djquan/skeleton/grpcservice/health"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
-	"log"
-	"net"
 )
 
 func main() {
