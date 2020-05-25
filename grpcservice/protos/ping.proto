@@ -1,0 +1,15 @@
+syntax = "proto3";
+package ping;
+
+import "google/protobuf/timestamp.proto";
+
+service PingService {
+    rpc Ping(PingRequest) returns (PingResult) {}
+}
+
+message PingRequest {}
+
+message PingResult {
+    string message = 1;
+    google.protobuf.Timestamp created_at = 2;
+}
