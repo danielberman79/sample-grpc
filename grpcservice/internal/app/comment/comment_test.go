@@ -8,8 +8,7 @@ import (
 )
 
 func TestCreateComment(t *testing.T) {
-	db, cleanup := test.NewDatabaseForTest(t)
-	defer cleanup()
+	db := test.NewDatabaseForTest(t)
 
 	s := &server{db: &db}
 	expectedComment := "hi"

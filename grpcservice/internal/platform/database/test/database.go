@@ -11,7 +11,7 @@ import (
 )
 
 //NewDatabaseForTest provides a new database for tests, and returns that database and the cleanup function.
-func NewDatabaseForTest(t *testing.T) (database.Database, func()) {
+func NewDatabaseForTest(t *testing.T) database.Database {
 	config := database.Info{
 		Host:         "localhost",
 		Port:         "5432",
@@ -54,7 +54,8 @@ func NewDatabaseForTest(t *testing.T) (database.Database, func()) {
 		t.Fatalf("Unable to perform DB migrations: %v\n", err)
 	}
 
-	return *newDb, cleanup(newDb, db, t, tableId)
+	t.Cleanup(cleanup(newDb, db, t, tableId))
+	return *newDb
 }
 
 func cleanup(newDb, db *database.Database, t *testing.T, tableId string) func() {
