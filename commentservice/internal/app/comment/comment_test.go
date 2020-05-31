@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/djquan/skeleton/grpcservice/internal/platform/database/test"
+	"github.com/djquan/skeleton/commentservice/internal/platform/database/test"
 )
 
 func TestCreateComment(t *testing.T) {

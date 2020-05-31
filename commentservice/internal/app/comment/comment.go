@@ -3,7 +3,7 @@ package comment
 import (
 	"context"
 
-	"github.com/djquan/skeleton/grpcservice/internal/platform/database"
+	"github.com/djquan/skeleton/commentservice/internal/platform/database"
 
 	"github.com/golang/protobuf/ptypes"
 	"github.com/google/uuid"

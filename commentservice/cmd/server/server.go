@@ -5,10 +5,10 @@ import (
 	"log"
 	"net"
 
-	"github.com/djquan/skeleton/grpcservice/internal"
-	"github.com/djquan/skeleton/grpcservice/internal/app/comment"
-	"github.com/djquan/skeleton/grpcservice/internal/app/ping"
-	"github.com/djquan/skeleton/grpcservice/internal/platform/database"
+	"github.com/djquan/skeleton/commentservice/internal"
+	"github.com/djquan/skeleton/commentservice/internal/app/comment"
+	"github.com/djquan/skeleton/commentservice/internal/app/ping"
+	"github.com/djquan/skeleton/commentservice/internal/platform/database"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/health"

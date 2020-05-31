@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/djquan/skeleton/grpcservice/internal/platform/database"
+	"github.com/djquan/skeleton/commentservice/internal/platform/database"
 	"github.com/google/uuid"
 )
 
