@@ -4,6 +4,9 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"net/http"
+	_ "net/http/pprof"
+	"runtime"
 
 	"github.com/djquan/skeleton/commentservice/internal"
 	"github.com/djquan/skeleton/commentservice/internal/app/comment"
@@ -17,6 +20,7 @@ import (
 )
 
 func main() {
+	runtime.SetBlockProfileRate(1)
 	config := internal.ReadConfig()
 	lis, err := net.Listen("tcp", fmt.Sprintf("%v:%v", config.Server.Host, config.Server.Port))
 	if err != nil {
@@ -31,6 +35,15 @@ func main() {
 
 	s := grpc.NewServer(grpc.UnaryInterceptor(unaryInterceptor), grpc.StreamInterceptor(streamInterceptor))
 	setupServer(s, db)
+
+	go func() {
+		err := http.ListenAndServe("localhost:9080", nil)
+
+		if err != nil {
+			log.Printf("pprof server returned an err: %v", err)
+		}
+	}()
+
 	log.Println("Beginning to Serve grpc traffic on port 8080")
 	if err = s.Serve(lis); err != nil {
 		log.Fatalf("oh nos %v", err)

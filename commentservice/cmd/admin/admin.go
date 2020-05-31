@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	command := flag.String("command", "", "migrate/")
+	command := flag.String("command", "", "migrate/reset")
 	flag.Parse()
 
 	config := internal.ReadConfig()
