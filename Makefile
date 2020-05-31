@@ -7,6 +7,10 @@ proto-generate:
 
 grpc-healthcheck:
 	grpcurl -plaintext localhost:8080 grpc.health.v1.Health/Check
+	grpcurl -d '{"service": "ping.PingService"}' -plaintext localhost:8080 grpc.health.v1.Health/Check
+	grpcurl -d '{"service": "comment.CommentService"}' -plaintext localhost:8080 grpc.health.v1.Health/Check
+	grpcurl -d '{"service": "doesnotexist.DOESNOTEXISt"}' -plaintext localhost:8080 grpc.health.v1.Health/Check || true
+	grpcurl -d '{"service": "comment.CommentService"}' -plaintext localhost:8080 grpc.health.v1.Health/Watch
 
 grpc-ping:
 	grpcurl -plaintext localhost:8080 ping.PingService/Ping

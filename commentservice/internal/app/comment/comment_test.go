@@ -10,7 +10,7 @@ import (
 func TestCreateComment(t *testing.T) {
 	db := test.NewDatabaseForTest(t)
 
-	s := &server{db: &db}
+	s := &server{Db: &db}
 	expectedComment := "hi"
 	expectedName := "dan"
 

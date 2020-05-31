@@ -8,14 +8,16 @@ import (
 	_ "net/http/pprof"
 	"runtime"
 
+	healthgrpc "google.golang.org/grpc/health/grpc_health_v1"
+
+	"github.com/djquan/skeleton/commentservice/internal/app/health"
+
 	"github.com/djquan/skeleton/commentservice/internal"
 	"github.com/djquan/skeleton/commentservice/internal/app/comment"
 	"github.com/djquan/skeleton/commentservice/internal/app/ping"
 	"github.com/djquan/skeleton/commentservice/internal/platform/database"
 
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/health"
-	healthgrpc "google.golang.org/grpc/health/grpc_health_v1"
 	"google.golang.org/grpc/reflection"
 )
 
@@ -51,8 +53,17 @@ func main() {
 }
 
 func setupServer(s *grpc.Server, db *database.Database) {
-	healthgrpc.RegisterHealthServer(s, health.NewServer())
-	ping.Register(s)
-	comment.Register(s, db)
+	commentServer := comment.NewServer(db)
+	comment.RegisterCommentServiceServer(s, commentServer)
+
+	pingServer := ping.NewServer()
+	ping.RegisterPingServiceServer(s, pingServer)
+
+	healthServer := health.NewServer(map[string]health.Checker{
+		"ping.PingService":       pingServer,
+		"comment.CommentService": commentServer,
+	})
+
+	healthgrpc.RegisterHealthServer(s, healthServer)
 	reflection.Register(s)
 }
