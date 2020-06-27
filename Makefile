@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 
 proto-generate:
-	for proto in commentservice/api/*.proto; do \
+	for proto in api/*.proto; do \
 	  protoc --go_out=plugins=grpc:. $$proto ;\
 	done
 

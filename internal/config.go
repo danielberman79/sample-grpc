@@ -4,7 +4,7 @@ import (
 	"log"
 
 	"github.com/BurntSushi/toml"
-	"github.com/djquan/skeleton/commentservice/internal/platform/database"
+	"github.com/djquan/skeleton/internal/platform/database"
 )
 
 //Config represents the configuration of this application
@@ -21,7 +21,7 @@ type serverInfo struct {
 
 //ReadConfig parses a config file and returns a representation
 func ReadConfig() (config Config) {
-	_, err := toml.DecodeFile("commentservice/dev.toml", &config)
+	_, err := toml.DecodeFile("dev.toml", &config)
 	if err != nil {
 		log.Fatalf("Unable to decode file: %v\n", err)
 	}

@@ -5,7 +5,7 @@ import (
 
 	healthgrpc "google.golang.org/grpc/health/grpc_health_v1"
 
-	"github.com/djquan/skeleton/commentservice/internal/platform/database"
+	"github.com/djquan/skeleton/internal/platform/database"
 
 	"github.com/golang/protobuf/ptypes"
 	"github.com/google/uuid"

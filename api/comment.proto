@@ -1,6 +1,6 @@
 syntax = "proto3";
 package comment;
-option go_package = "commentservice/internal/comment";
+option go_package = "internal/app/comment";
 
 import "google/protobuf/timestamp.proto";
 
