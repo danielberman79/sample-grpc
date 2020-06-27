@@ -11,6 +11,12 @@ run-server:
 build-server:
 	go build github.com/djquan/skeleton/cmd/server
 
+migrate-db:
+	go run github.com/djquan/skeleton/cmd/admin --command migrate
+
+reset-db:
+	go run github.com/djquan/skeleton/cmd/admin --command reset
+
 grpc-healthcheck:
 	grpcurl -plaintext localhost:8080 grpc.health.v1.Health/Check
 	grpcurl -d '{"service": "ping.PingService"}' -plaintext localhost:8080 grpc.health.v1.Health/Check
