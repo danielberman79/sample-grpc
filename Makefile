@@ -5,6 +5,12 @@ proto-generate:
 	  protoc --go_out=plugins=grpc:. $$proto ;\
 	done
 
+run-server:
+	go run github.com/djquan/skeleton/cmd/server
+
+build-server:
+	go build github.com/djquan/skeleton/cmd/server
+
 grpc-healthcheck:
 	grpcurl -plaintext localhost:8080 grpc.health.v1.Health/Check
 	grpcurl -d '{"service": "ping.PingService"}' -plaintext localhost:8080 grpc.health.v1.Health/Check
