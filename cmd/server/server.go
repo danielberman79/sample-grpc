@@ -10,11 +10,11 @@ import (
 
 	healthgrpc "google.golang.org/grpc/health/grpc_health_v1"
 
-	"github.com/djquan/skeleton/internal"
-	"github.com/djquan/skeleton/internal/app/comment"
-	"github.com/djquan/skeleton/internal/app/health"
-	"github.com/djquan/skeleton/internal/app/ping"
-	"github.com/djquan/skeleton/internal/platform/database"
+	"github.com/djquan/sample-grpc/internal"
+	"github.com/djquan/sample-grpc/internal/app/comment"
+	"github.com/djquan/sample-grpc/internal/app/health"
+	"github.com/djquan/sample-grpc/internal/app/ping"
+	"github.com/djquan/sample-grpc/internal/platform/database"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"

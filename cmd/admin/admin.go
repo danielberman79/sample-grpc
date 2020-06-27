@@ -4,8 +4,8 @@ import (
 	"flag"
 	"log"
 
-	"github.com/djquan/skeleton/internal"
-	"github.com/djquan/skeleton/internal/platform/database"
+	"github.com/djquan/sample-grpc/internal"
+	"github.com/djquan/sample-grpc/internal/platform/database"
 )
 
 func main() {

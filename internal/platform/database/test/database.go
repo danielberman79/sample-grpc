@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/djquan/skeleton/internal/platform/database"
+	"github.com/djquan/sample-grpc/internal/platform/database"
 	"github.com/google/uuid"
 )
 
@@ -26,7 +26,7 @@ func NewDatabaseForTest(t *testing.T) database.Database {
 		t.Fatalf("Unable to establish connection to database in order to create test database: %v\n", err)
 	}
 
-	tableId := strings.ReplaceAll(fmt.Sprintf("skeleton-test-%v", uuid.New().String()), "-", "")
+	tableId := strings.ReplaceAll(fmt.Sprintf("sample-grpc-test-%v", uuid.New().String()), "-", "")
 	_, err = db.Exec(context.Background(), fmt.Sprintf("CREATE DATABASE %v", tableId))
 
 	if err != nil {

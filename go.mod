@@ -1,4 +1,4 @@
-module github.com/djquan/skeleton
+module github.com/djquan/sample-grpc
 
 go 1.14
 

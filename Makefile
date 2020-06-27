@@ -6,16 +6,16 @@ proto-generate:
 	done
 
 run-server:
-	go run github.com/djquan/skeleton/cmd/server
+	go run github.com/djquan/sample-grpc/cmd/server
 
 build-server:
-	go build github.com/djquan/skeleton/cmd/server
+	go build github.com/djquan/sample-grpc/cmd/server
 
 migrate-db:
-	go run github.com/djquan/skeleton/cmd/admin --command migrate
+	go run github.com/djquan/sample-grpc/cmd/admin --command migrate
 
 reset-db:
-	go run github.com/djquan/skeleton/cmd/admin --command reset
+	go run github.com/djquan/sample-grpc/cmd/admin --command reset
 
 grpc-healthcheck:
 	grpcurl -plaintext localhost:8080 grpc.health.v1.Health/Check

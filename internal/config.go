@@ -4,7 +4,7 @@ import (
 	"log"
 
 	"github.com/BurntSushi/toml"
-	"github.com/djquan/skeleton/internal/platform/database"
+	"github.com/djquan/sample-grpc/internal/platform/database"
 )
 
 //Config represents the configuration of this application
